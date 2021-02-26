@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}
+Main page
+{% endblock title %}
+
+
+{% block content %}
+
+ 
+<form action='' method="POST" class="ui form" enctype='multipart/form-data'>
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type='submit' class='ui button primary'>Confirm</button>
+</form>
+
+
+
+{% if messages %}
+<div class="alert alert-danger" role="alert"> 
+{% for display in messages %}
+<p>{{display}}</p>
+
+{% endfor %}
+</div>
+{% endif %}
+
+
+
+<div>
+    {% if things %}
+    <div class="alert alert-primary" role="alert">
+    <h3>The following entries were correct and are created/updated in Thing table</h3>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>code</th>
+            <th>description</th>
+            <th>date</th>
+            <th>stat_one</th>
+            <th>stat_two</th>
+        </tr>
+        {% for thing in things %}
+        
+        <tr>
+            <td>{{ thing.code }}</td>
+            <td>{{ thing.description }}</td>
+            <td>{{ thing.date }}</td>
+            <td>{{ thing.stat_one }}</td>
+            <td>{{ thing.stat_two }}</td> 
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+
+
+
+
+<div>
+    {% if Items %}
+    <div class="alert alert-primary" role="alert">
+    <h3>The following entries were correct and are created in Item table</h3>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>thing_code</th>
+            <th>name</th>
+            <th>rating</th>
+            <th>score</th>
+        </tr>
+        {% for item in Items %}
+        
+        <tr>
+            <td>{{ item.thing.code }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.rating }}</td>
+            <td>{{ item.score }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+
+
+
+{% endblock content %}
